@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatroom</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="shortcut icon" href="#">
 </head>
 <body>
     <section>
-        <form>
+        <form class="form">
             <h1> FSE Chat Room </h1>
             <div class="inputbox">
                 <label for="">Username</label>
@@ -20,10 +20,11 @@
                 <input type="text" required>
             </div>
             <div class="botton">
-            <button>Login</button>
-            <button>Register</button>
+            <button onclick="">Login</button>
+            <button onclick="window.location.href='/register'">Register</button>
             </div>
         </form>
     </section>
+    <script src="js/login.js"></script>
 </body>
 </html>
