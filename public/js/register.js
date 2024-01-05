@@ -3,8 +3,12 @@ const password = document.querySelector('.password');
 const createButton = document.querySelector('.createButton');
 
 
-createButton.addEventListener('click', () => {
-    fetch('/saveUser', {
+createButton.addEventListener('click', saveUser);
+
+
+async function saveUser(e){
+    e.preventDefault();
+    res = await fetch('/saveUser', {
         method: 'post',
         headers: new Headers({'Content-Type': 'application/json'}),
         body: JSON.stringify({
@@ -12,5 +16,26 @@ createButton.addEventListener('click', () => {
             password: password.value
         })
     })
-    .then(res => res.json())
-})
+    console.log(res)
+    const data = await res.json()
+    Datahandler(data)
+}
+
+
+const Datahandler = (data) => {
+    if(!data.userName) {
+        alert(data);
+    }
+    else {
+        sessionStorage.userName = data.userName;
+        sessionStorage.password = data.password;
+        console.log(data)
+        location.href = '/';
+    }
+}
+
+const alert = (data) => {
+    alertContainer = document.querySelector('.alert-box');
+    const alertMsg = document.querySelector('.alert');
+    alertMsg.innerHTML = data;
+}
