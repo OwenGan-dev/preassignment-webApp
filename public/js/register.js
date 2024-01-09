@@ -16,7 +16,6 @@ async function saveUser(e){
             password: password.value
         })
     })
-    console.log(res)
     const data = await res.json()
     Datahandler(data)
 }
@@ -29,7 +28,6 @@ const Datahandler = (data) => {
     else {
         sessionStorage.userName = data.userName;
         sessionStorage.password = data.password;
-        console.log(data)
         location.href = '/';
     }
 }

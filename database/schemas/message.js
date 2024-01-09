@@ -2,14 +2,16 @@ const mongoose = require('mongoose');
 
 const message = new mongoose.Schema({
     userName: {
-        type: mongoose.SchemaTypes.String,
+        type: String,
         require: true
     },
-    content: {
-        type: mongoose.SchemaType.String,
+    message: {
+        type: String,
         require: true
     },
     postDate: {
+        type: Date,
+        require: true
     }
 })
 

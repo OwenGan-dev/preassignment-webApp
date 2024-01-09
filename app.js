@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userDB = require('./database/schemas/user')
+const messageDB = require('./database/schemas/message')
 require('./database/database');
 
 
@@ -38,6 +39,9 @@ app.post('/saveUser',async (req, res) => {
         userName: req.body.userName,
         password: req.body.password
     }
+    if (!req.body.userName.length || !req.body.password.length) {
+        return res.json("Fill all the fields!!!");
+    }
     const user = await userDB.findOne({userName: data.userName})
     if (user) { 
         return res.json('User already eists!');
@@ -46,4 +50,39 @@ app.post('/saveUser',async (req, res) => {
         const newUser = await userDB.insertMany(data);
         return res.json(newUser[0])
     }
+})
+
+app.post('/loginUser',async (req, res) => {
+    const {userName, password} = req.body;
+
+    if (!userName.length || !password.length) {
+        return res.json("Fill all the fields!!!");
+    }
+    const user = await userDB.findOne({userName: userName})
+    if (!user) {
+        return res.json('User cannot be found!');
+    }
+    if (user.password!=password) {
+        return res.json("wrong password");
+    }
+    else {
+        return res.json(user);
+    }
+})
+
+app.post('/postMessage', async (req, res) => {
+    const { userName, message } = req.body;
+    const date = new Date();
+    //save the message to database
+    const newPost = await userDB.insertMany({
+        userName: userName,
+        message: message,
+        postDate: date.getTime
+    });
+    return res.json(newPost[0])
+})
+
+app.get('/getAllMessage', async (req, res) => {
+    console.log(messageDB.find());
+    res.sendStatus(200);
 })
