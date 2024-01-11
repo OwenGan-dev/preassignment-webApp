@@ -3,6 +3,7 @@ const password = document.querySelector('.password');
 const loginButton = document.querySelector('.loginButton');
 
 loginButton.addEventListener('click',loginUser);
+loginButton.addEventListener('click',getAllMessages);
 
 async function loginUser(e){
     e.preventDefault();
@@ -16,6 +17,15 @@ async function loginUser(e){
     })
     const data = await res.json()
     Datahandler(data)
+}
+
+async function getAllMessages(e){
+    e.preventDefault();
+    res = await fetch('/getAllmessage',{
+        method: 'GET',
+    })
+    const messages = await res.json()
+    
 }
 
 const Datahandler = (data) => {

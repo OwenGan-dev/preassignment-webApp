@@ -74,15 +74,15 @@ app.post('/postMessage', async (req, res) => {
     const { userName, message } = req.body;
     const date = new Date();
     //save the message to database
-    const newPost = await userDB.insertMany({
+    const newPost = await messageDB.insertMany({
         userName: userName,
         message: message,
-        postDate: date.getTime
+        postDate: date
     });
     return res.json(newPost[0])
 })
 
 app.get('/getAllMessage', async (req, res) => {
-    console.log(messageDB.find());
-    res.sendStatus(200);
+    const messages = await messageDB.find({});
+    return res.json(messages)
 })
